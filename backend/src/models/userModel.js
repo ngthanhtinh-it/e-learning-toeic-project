@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
         maxlength: 20,
         default: null,
+        required: true
     },
     avatar_url: {
         type: String,

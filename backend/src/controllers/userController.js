@@ -11,7 +11,7 @@ const createToken = (user) => {
 // Hàm đăng ký cho người dùng
 
 const registerUser = async (req, res) => {
-    const {email, password} = req.body;
+    const {email, password, phone} = req.body;
 
     try{
         
@@ -28,7 +28,11 @@ const registerUser = async (req, res) => {
         if (password.length < 8) {
             return res.json({success: false, message: 'Mật khẩu phải có ít nhất 8 ký tự'});
         }
-
+        // Kiểm tra định dạng số điện thoại (ví dụ: chỉ cho phép số và có độ dài từ 10-12 ký tự)
+        const phoneRegex = /^\d{10,12}$/;
+        if (!phoneRegex.test(phone)) {
+            return res.json({success: false, message: 'Định dạng số điện thoại không hợp lệ'});
+        } 
         // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
         const salt = await bcrypt.genSalt(10);
         const password_hash = await bcrypt.hash(password, salt);
@@ -38,7 +42,8 @@ const registerUser = async (req, res) => {
             email: email.toLowerCase(),
             password: password_hash,
             full_name: req.body.full_name || 'Người dùng mới',
-            role: req.body.role || 'learner'
+            role: req.body.role || 'learner',
+            phone: phone,
         });
 
         const savedUser = await newUser.save();
