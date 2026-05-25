@@ -4,8 +4,8 @@ import jwt from 'jsonwebtoken';
 import validate from 'validator';
 
 // Tạo chữ ký JWT cho người dùng
-const createToken = (user) => {
-    return jwt.sign({id : user._id},process.env.JWT_SECRET)
+const createToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET);
 }
 
 // Hàm đăng ký cho người dùng
@@ -41,7 +41,7 @@ const registerUser = async (req, res) => {
         const newUser = new userModel({
             email: email.toLowerCase(),
             password: password_hash,
-            full_name: req.body.full_name || 'Người dùng mới',
+            full_name: req.body.fullname || req.body.full_name || 'Người dùng mới',
             role: req.body.role || 'learner',
             phone: phone,
         });
@@ -82,4 +82,19 @@ const loginUser = async (req, res) => {
     }
 }
 
-export {loginUser, registerUser};
+// Hàm lấy thông tin người dùng (có thể sử dụng middleware để xác thực token trước khi gọi hàm này)
+const getUserInfo = async (req, res) => {
+    try {
+        const user = await userModel.findById(req.body.userId).select('-password'); // Loại bỏ trường mật khẩu khỏi kết quả trả về
+        if (!user) {
+            return res.json({success: false, message: 'Không tìm thấy người dùng'});
+        }
+        res.json({success: true, user});
+    }
+    catch(error){
+        console.error('Lỗi lấy thông tin người dùng:', error);
+        res.json({success: false, message: 'Error lấy thông tin'});
+    }
+}
+
+export {loginUser, registerUser, getUserInfo};

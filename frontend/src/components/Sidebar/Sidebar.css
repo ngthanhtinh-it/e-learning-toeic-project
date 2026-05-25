@@ -1,0 +1,28 @@
+/* Sidebar.css */
+
+/* Tùy chỉnh thanh cuộn cho Sidebar nếu danh sách menu quá dài */
+.sidebar-container {
+  overflow-y: auto;
+}
+
+.sidebar-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-container::-webkit-scrollbar-thumb {
+  background-color: var(--color-outline-variant);
+  border-radius: 10px;
+}
+
+.sidebar-container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-outline);
+}
+
+/* Đảm bảo icon có hiệu ứng chuyển đổi mượt mà */
+.sidebar-link-icon {
+  transition: font-variation-settings 0.2s ease-in-out;
+}

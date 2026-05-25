@@ -60,7 +60,6 @@ export default function LoginForm() {
       })
 
       console.log('Thành Công:', response.data)
-      // do something
     }
     catch (error) {
       console.error('Error API:', error)

@@ -83,6 +83,20 @@
   --text-caption--font-weight: 400;
 
   --shadow-ambient: 0 4px 20px rgba(26, 35, 126, 0.05);
+
+  --spacing-unit: 4px;
+  --spacing-xl: 48px;
+  --spacing-container-max: 1200px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xs: 4px;
+  --spacing-gutter: 24px;
+  --spacing-sm: 8px;
+
+  --radius-DEFAULT: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
 }
 
 body {
